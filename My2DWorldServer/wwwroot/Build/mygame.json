@@ -1,0 +1,17 @@
+{
+"companyName": "Daniel.k inc",
+"productName": "MyVirtualWorld",
+"productVersion": "0.1",
+"dataUrl": "mygame.data.unityweb",
+"wasmCodeUrl": "mygame.wasm.code.unityweb",
+"wasmFrameworkUrl": "mygame.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"backgroundUrl": "mygame.jpg",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#FFFFFF",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.12f1"
+}

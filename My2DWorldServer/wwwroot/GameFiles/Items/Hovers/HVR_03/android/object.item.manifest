@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 2562967088
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0abd3f7f9818a458477105f8a3000b06
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a52e1cbc212b0a959389a95b41ab86ba
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: e4b2f7dc50b21bd45af3cc2ba6175de9, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildScript/hoverBoard_8ZV9R9LSK1R81CP.prefab
+Dependencies: []

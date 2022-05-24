@@ -1,0 +1,7 @@
+ManifestFileVersion: 0
+CRC: 1935881692
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: object.map
+      Dependencies: {}

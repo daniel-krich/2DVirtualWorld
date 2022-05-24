@@ -1,0 +1,36 @@
+ManifestFileVersion: 0
+CRC: 1084998847
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e85f40abcf41574f42262e25834d269f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 24c50cca063a6a6d819d6f2c437e2d53
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 68
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 78396926cbbfc4ac3b48fc5fc34a87d1, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: e4b2f7dc50b21bd45af3cc2ba6175de9, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildScript/ForestTwo_CN3FM7ZL5TZ6EE9.prefab
+Dependencies: []

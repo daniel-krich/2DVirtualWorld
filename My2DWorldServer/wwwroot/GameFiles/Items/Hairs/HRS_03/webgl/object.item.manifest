@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3139063298
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 520b31e4196d6f3894d4f9fa7bbf21eb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3976a22b184e1551c1e7bb361a93ad37
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildScript/Hair2_5UBU53YPCZP245B.prefab
+Dependencies: []

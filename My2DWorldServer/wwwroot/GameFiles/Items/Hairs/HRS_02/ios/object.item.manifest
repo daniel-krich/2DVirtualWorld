@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3566043322
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 027fd85fa4a63c5318eb867c419bceeb
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 3976a22b184e1551c1e7bb361a93ad37
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildScript/HairFem_UYPF84ZGJ4RHO1Q.prefab
+Dependencies: []

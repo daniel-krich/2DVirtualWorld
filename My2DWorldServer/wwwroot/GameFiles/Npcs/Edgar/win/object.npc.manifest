@@ -1,0 +1,30 @@
+ManifestFileVersion: 0
+CRC: 3877798402
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 86a3dba9c8ddb57277a11cec9a009c2f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 62099c0b945eab7c251fbdc1c3522d32
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 210
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/BuildScript/Npc_Edgar_46DA6R174LR2CHH.prefab
+Dependencies: []

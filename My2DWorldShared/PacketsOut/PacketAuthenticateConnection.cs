@@ -25,6 +25,4 @@ namespace My2DWorldShared.PacketsOut
 			Message = message;
 		}
 	}
-
-	
 }

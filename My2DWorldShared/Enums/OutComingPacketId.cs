@@ -11,6 +11,8 @@ namespace My2DWorldShared.Enums
         ValidateAuthentication,
         PushUserInformation,
         ChangeMap,
-        UpdatePosition
+        UpdatePosition,
+        PlayerJoinedRoom,
+        PlayerExitRoom
     }
 }

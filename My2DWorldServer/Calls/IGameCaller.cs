@@ -5,16 +5,17 @@ namespace My2DWorldServer.Calls
 {
     public interface IGameCaller
     {
-        public abstract Task OnAuthenticate(PacketAuthenticate packet);
-        public abstract Task OnChangeServer(PacketChangeServer packet);
-        public abstract Task OnEquipItem(PacketEquipItem packet);
-        public abstract Task OnPlayerMove(PacketPlayerMove packet);
-        public abstract Task OnChatMessage(PacketChatMessage packet);
-        public abstract Task OnMapChange(PacketMapChange packet);
-        public abstract Task OnGameLoad(PacketGameLoad packet);
-        public abstract Task OnGameQuit(PacketGameQuit packet);
-        public abstract Task OnGameProgressUpdate(PacketGameProgressUpdate packet);
-        public abstract Task OnShopLoad(PacketShopLoad packet);
-        public abstract Task OnShopBuy(PacketShopBuy packet);
+        public Task OnAuthenticate(PacketAuthenticate packet);
+        public Task OnChangeServer(PacketChangeServer packet);
+        public Task OnEquipItem(PacketEquipItem packet);
+        public Task OnPlayerMove(PacketPlayerMove packet);
+        public Task OnChatMessage(PacketChatMessage packet);
+        public Task OnMapChange(PacketMapChange packet);
+        public Task OnGameLoad(PacketGameLoad packet);
+        public Task OnGameQuit(PacketGameQuit packet);
+        public Task OnGameProgressUpdate(PacketGameProgressUpdate packet);
+        public Task OnShopLoad(PacketShopLoad packet);
+        public Task OnShopBuy(PacketShopBuy packet);
+        public Task OnQuitServer();
     }
 }

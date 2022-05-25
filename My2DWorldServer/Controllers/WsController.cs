@@ -120,8 +120,16 @@ namespace My2DWorldServer.Controllers
             }
             finally
             {
-                _users.Sessions.Remove(_session);
-                Console.WriteLine("Connection closed");
+                try
+                {
+                    await _gameCaller.OnQuitServer();
+                }
+                catch { }
+                finally
+                {
+                    _users.Sessions.Remove(_session);
+                    Console.WriteLine("Connection closed");
+                }
             }
         }
     }

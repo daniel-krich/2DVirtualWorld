@@ -129,5 +129,17 @@ namespace My2DWorldServer.Calls
         {
             throw new NotImplementedException();
         }
+
+        public async Task OnQuitServer()
+        {
+            if (_session.Logged && _session.MapId != null && _session.ServerId != null)
+            {
+                using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
+                {
+                    UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
+                    await _gameInformer.SendExitedRoomToAll(user);
+                }
+            }
+        }
     }
 }

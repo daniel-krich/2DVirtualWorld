@@ -9,5 +9,6 @@ namespace My2DWorldShared.PacketsIn
     public class PacketMapChange : PacketInBase
     {
         public int MapId { get; set; }
+        public int ExitId { get; set; }
     }
 }

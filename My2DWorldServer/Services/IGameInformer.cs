@@ -6,7 +6,7 @@ namespace My2DWorldServer.Services
     {
         public Task SendAuthenticateConnection();
         public Task SendAuthenticateRejectConnection(string reason);
-        public Task SendMapChange(int mapId, int exitId = -1);
+        public Task SendMapChange(int mapId, int exitId);
         public Task SendPlayerUpdatePosition(float x, float y);
         public Task SendPushUserInformation();
         public Task SendJoinedRoomToAll(UserEntity? user);

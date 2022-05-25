@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using My2DWorldServer.Extensions;
 using My2DWorldServer.Services;
 using My2DWorldShared.Data;
 using My2DWorldShared.DataEntities;
@@ -72,7 +73,7 @@ namespace My2DWorldServer.Calls
                         {
                             _session.ServerId = server.Id;
                             await _gameInformer.SendPushUserInformation();
-                            await _gameInformer.SendMapChange(1);
+                            await _gameInformer.SendMapChange(1, 0);
                         }
                     }
                     else throw new ApplicationException("Invalid Server Id.");
@@ -81,9 +82,25 @@ namespace My2DWorldServer.Calls
             else throw new ApplicationException("Not authenticated.");
         }
 
-        public Task OnChatMessage(PacketChatMessage packet)
+        public async Task OnChatMessage(PacketChatMessage packet)
         {
-            throw new NotImplementedException();
+            if(_session.Logged && _session.ServerId != null)
+            {
+                using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
+                {
+                    UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
+                    PacketPushChatMessage pushMessage = new PacketPushChatMessage
+                    {
+                        PlayerName = user?.Username,
+                        Message = packet.Message
+                    };
+
+                    var arraySegmentPushMessage = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(pushMessage)));
+
+                    await _users.Sessions.Where(x => x.ServerId == _session.ServerId && x.MapId == _session.MapId)
+                    .ForEachAsyncCustom(x => x.WebSocket.SendAsync(arraySegmentPushMessage, WebSocketMessageType.Binary, true, CancellationToken.None));
+                }
+            }
         }
 
         public Task OnEquipItem(PacketEquipItem packet)
@@ -108,7 +125,11 @@ namespace My2DWorldServer.Calls
 
         public Task OnMapChange(PacketMapChange packet)
         {
-            throw new NotImplementedException();
+            if (_session.Logged && _session.ServerId != null)
+            {
+                _gameInformer.SendMapChange(packet.MapId, packet.ExitId);
+            }
+            return Task.CompletedTask;
         }
 
         public Task OnPlayerMove(PacketPlayerMove packet)

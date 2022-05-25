@@ -71,7 +71,7 @@ namespace My2DWorldServer.Services
             }
         }
 
-        public async Task SendMapChange(int mapId, int exitId = -1)
+        public async Task SendMapChange(int mapId, int exitId)
         {
             if (_session.Logged)
             {
@@ -82,21 +82,26 @@ namespace My2DWorldServer.Services
 
                     await SendExitedRoomToAll(user);
 
+                    MapExitEntity? previousMapExit = await dbContext.MapExits.FindAsync(exitId);
+
                     MapInformationFactory mapFactory = new MapInformationFactory(_dbContextFactory, _session, _users);
                     PacketChangeMap mapChange = new PacketChangeMap
                     {
                         Info = await mapFactory.Create(mapId)
                     };
+
                     _session.MapId = mapId;
-                    MapExitInfo? mapExit = mapChange.Info?.MapLeave?.FirstOrDefault(x => x.ExitId == exitId);
-                    if (mapExit != null)
+
+                    if (previousMapExit != null)
                     {
-                        _session.Position = new PlayerPosition(mapExit.ExitTeleportX, mapExit.ExitTeleportY);
+                        _session.Position = new PlayerPosition(previousMapExit.ExitTeleportX, previousMapExit.ExitTeleportY);
                     }
                     else
                     {
                         _session.Position = new PlayerPosition(mapChange.Info?.SpawnX ?? 0, mapChange.Info?.SpawnY ?? 0);
                     }
+                    mapChange.PositionX = _session.Position.X;
+                    mapChange.PositionY = _session.Position.Y;
                     await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(mapChange))), WebSocketMessageType.Binary, true, CancellationToken.None);
 
                     await SendJoinedRoomToAll(user);

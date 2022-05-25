@@ -13,6 +13,7 @@ namespace My2DWorldShared.Enums
         ChangeMap,
         UpdatePosition,
         PlayerJoinedRoom,
-        PlayerExitRoom
+        PlayerExitRoom,
+        PlayerSpeech
     }
 }

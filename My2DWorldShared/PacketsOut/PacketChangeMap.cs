@@ -11,6 +11,8 @@ namespace My2DWorldShared.PacketsOut
 {
 	public class PacketChangeMap : PacketOutBase
 	{
+		public float PositionX { get; set; }
+		public float PositionY { get; set; }
 		public MapInformationModel? Info { get; set; }
 
 		public PacketChangeMap()

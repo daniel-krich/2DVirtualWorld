@@ -3,6 +3,7 @@ using My2DWorldServer.Extensions;
 using My2DWorldServer.Services;
 using My2DWorldShared.Data;
 using My2DWorldShared.DataEntities;
+using My2DWorldShared.Extensions;
 using My2DWorldShared.PacketsIn;
 using My2DWorldShared.PacketsOut;
 using System.Net.WebSockets;
@@ -67,13 +68,14 @@ namespace My2DWorldServer.Calls
                 using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
                 {
                     ServerLocationEntity? server = await dbContext.Servers.FindAsync(packet.ServerId);
+                    UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
                     if (server != null)
                     {
                         if (_users.Sessions.Count(y => y.ServerId == server.Id) < server.ServerMaxPlayers)
                         {
                             _session.ServerId = server.Id;
                             await _gameInformer.SendPushUserInformation();
-                            await _gameInformer.SendMapChange(1, 0);
+                            await _gameInformer.SendMapChange(user?.LastLocationId ?? 1, 0);
                         }
                     }
                     else throw new ApplicationException("Invalid Server Id.");
@@ -158,7 +160,13 @@ namespace My2DWorldServer.Calls
                 using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
                 {
                     UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
+                    if (user != null)
+                    {
+                        user.LastLocationId = _session.MapId;
+                        await dbContext.UpdateFieldsAsync(user, x => x.LastLocationId);
+                    }
                     await _gameInformer.SendExitedRoomToAll(user);
+                    Console.WriteLine($"{user?.Username} has left.");
                 }
             }
         }

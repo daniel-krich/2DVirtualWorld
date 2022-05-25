@@ -114,9 +114,10 @@ namespace My2DWorldServer.Controllers
                     wsRes = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
             }
-            catch (Exception)
+            catch
             {
-                webSocket.Abort();
+                if (webSocket.State == WebSocketState.Connecting || webSocket.State == WebSocketState.Open)
+                    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
             }
             finally
             {

@@ -14,10 +14,11 @@ namespace My2DWorldShared.Enums
         PlayerMove,
         ChatMessage,
         MapChange,
-        GameLoad,
-        GameQuit,
-        GameProgressUpdate,
+        MiniGameLoad,
+        MiniGameQuit,
+        MiniGameProgressUpdate,
         ShopLoad,
-        ShopBuy
+        ShopBuy,
+        RequestChangeServer
     }
 }

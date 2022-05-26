@@ -40,7 +40,7 @@ namespace My2DWorldServer.Services
                     }).ToArray()
                 };
 
-                await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(auth))), WebSocketMessageType.Binary, true, CancellationToken.None);
+                await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(auth))), WebSocketMessageType.Binary, true, CancellationToken.None);
             }
         }
 
@@ -48,7 +48,7 @@ namespace My2DWorldServer.Services
         {
             var auth = new PacketAuthenticateConnection(reason);
 
-            await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(auth))), WebSocketMessageType.Binary, true, CancellationToken.None);
+            await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(auth))), WebSocketMessageType.Binary, true, CancellationToken.None);
         }
 
         public async Task SendPushUserInformation()
@@ -65,7 +65,7 @@ namespace My2DWorldServer.Services
                         {
                             Info = await userFactory.Create(user)
                         };
-                        await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(userInfo))), WebSocketMessageType.Binary, true, CancellationToken.None);
+                        await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(userInfo))), WebSocketMessageType.Binary, true, CancellationToken.None);
                     }
                 }
             }
@@ -102,7 +102,7 @@ namespace My2DWorldServer.Services
                     }
                     mapChange.PositionX = _session.Position.X;
                     mapChange.PositionY = _session.Position.Y;
-                    await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(mapChange))), WebSocketMessageType.Binary, true, CancellationToken.None);
+                    await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(mapChange))), WebSocketMessageType.Binary, true, CancellationToken.None);
 
                     await SendJoinedRoomToAll(user);
                 }
@@ -116,8 +116,8 @@ namespace My2DWorldServer.Services
                 _session.Position = new PlayerPosition(x, y);
                 PacketUpdatePosition packetUpdate = new PacketUpdatePosition((await dbContext.Users.FindAsync(_session.UserId))?.Username, x, y);
                 _users.Sessions
-                    .Where(x => x.MapId == _session.MapId && x.ServerId == _session.ServerId)
-                    .ForEachCustom(x => x.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(packetUpdate))), WebSocketMessageType.Binary, true, CancellationToken.None));
+                    .Where(x => x.MapId == _session.MapId && x.ServerId == _session.ServerId && x.GameId == null)
+                    .ForEachCustom(x => x.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(packetUpdate))), WebSocketMessageType.Binary, true, CancellationToken.None));
             }
         }
 
@@ -129,9 +129,9 @@ namespace My2DWorldServer.Services
             {
                 Player = userInformation
             };
-            var arraySegmentSendPlayerJoinedRoom = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(joinRoomPlayer)));
+            var arraySegmentSendPlayerJoinedRoom = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(joinRoomPlayer)));
 
-            await _users.Sessions.Where(x => x != _session && x.ServerId == _session.ServerId && x.MapId == _session.MapId)
+            await _users.Sessions.Where(x => x != _session && x.ServerId == _session.ServerId && x.MapId == _session.MapId && x.GameId == null)
                 .ForEachAsyncCustom(x => x.WebSocket.SendAsync(arraySegmentSendPlayerJoinedRoom, WebSocketMessageType.Binary, true, CancellationToken.None));
         }
 
@@ -142,10 +142,26 @@ namespace My2DWorldServer.Services
                 PlayerName = user?.Username
             };
 
-            var arraySegmentSendPlayerExitRoom = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(exitRoom)));
+            var arraySegmentSendPlayerExitRoom = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(exitRoom)));
 
-            await _users.Sessions.Where(x => x != _session && x.ServerId == _session.ServerId && x.MapId == _session.MapId)
+            await _users.Sessions.Where(x => x != _session && x.ServerId == _session.ServerId && x.MapId == _session.MapId && x.GameId == null)
                 .ForEachAsyncCustom(x => x.WebSocket.SendAsync(arraySegmentSendPlayerExitRoom, WebSocketMessageType.Binary, true, CancellationToken.None));
+        }
+
+        public async Task SendPushUserMessageToRoom(UserEntity? user, string? message)
+        {
+            PacketPushChatMessage pushMessage = new PacketPushChatMessage(user?.Username, message);
+
+            var arraySegmentPushMessage = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(pushMessage)));
+
+            await _users.Sessions.Where(x => x.ServerId == _session.ServerId && x.MapId == _session.MapId && x.GameId == null)
+            .ForEachAsyncCustom(x => x.WebSocket.SendAsync(arraySegmentPushMessage, WebSocketMessageType.Binary, true, CancellationToken.None));
+        }
+
+        public async Task SendPlayerGameLoad(GameEntity? game)
+        {
+            PacketPlayerGameLoad gameLoad = new PacketPlayerGameLoad(game?.Id, game?.Name, game?.FilePath);
+            await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(gameLoad))), WebSocketMessageType.Binary, true, CancellationToken.None);
         }
     }
 }

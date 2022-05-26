@@ -73,17 +73,17 @@ namespace My2DWorldServer.Controllers
                             if (equipitem != null)
                                 await _gameCaller.OnEquipItem(equipitem);
                             break;
-                        case IncomingPacketId.GameLoad:
+                        case IncomingPacketId.MiniGameLoad:
                             var gameload = await JsonSerializer.DeserializeAsync<PacketGameLoad>(bufferStream);
                             if (gameload != null)
                                 await _gameCaller.OnGameLoad(gameload);
                             break;
-                        case IncomingPacketId.GameProgressUpdate:
+                        case IncomingPacketId.MiniGameProgressUpdate:
                             var updgameprog = await JsonSerializer.DeserializeAsync<PacketGameProgressUpdate>(bufferStream);
                             if (updgameprog != null)
                                 await _gameCaller.OnGameProgressUpdate(updgameprog);
                             break;
-                        case IncomingPacketId.GameQuit:
+                        case IncomingPacketId.MiniGameQuit:
                             var gamequit = await JsonSerializer.DeserializeAsync<PacketGameQuit>(bufferStream);
                             if (gamequit != null)
                                 await _gameCaller.OnGameQuit(gamequit);
@@ -107,6 +107,11 @@ namespace My2DWorldServer.Controllers
                             var shopload = await JsonSerializer.DeserializeAsync<PacketShopLoad>(bufferStream);
                             if (shopload != null)
                                 await _gameCaller.OnShopLoad(shopload);
+                            break;
+                        case IncomingPacketId.RequestChangeServer:
+                            var requestChangeServer = await JsonSerializer.DeserializeAsync<PacketRequestChangeServer>(bufferStream);
+                            if (requestChangeServer != null)
+                                await _gameCaller.OnRequestChangeServer(requestChangeServer);
                             break;
                         default:
                             throw new ApplicationException($"Invalid packet id sent ({packet?.Id})");

@@ -16,7 +16,7 @@ namespace My2DWorldShared.PacketsOut
             Id = OutComingPacketId.PlayerSpeech;
         }
 
-        public PacketPushChatMessage(string name, string message) : this()
+        public PacketPushChatMessage(string? name, string? message) : this()
         {
             PlayerName = name;
             Message = message;

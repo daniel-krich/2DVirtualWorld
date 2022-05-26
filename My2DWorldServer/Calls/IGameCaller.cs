@@ -16,6 +16,7 @@ namespace My2DWorldServer.Calls
         public Task OnGameProgressUpdate(PacketGameProgressUpdate packet);
         public Task OnShopLoad(PacketShopLoad packet);
         public Task OnShopBuy(PacketShopBuy packet);
+        public Task OnRequestChangeServer(PacketRequestChangeServer packet);
         public Task OnQuitServer();
     }
 }

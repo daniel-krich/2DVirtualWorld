@@ -50,7 +50,8 @@ namespace My2DWorldShared.Models
 
 	public class MiniGameInfo
 	{
-		public string? Name { get; set; }
+		public int? GameId { get; set; }
+		public string? GameName { get; set; }
 		public string? FilePath { get; set; }
     }
 

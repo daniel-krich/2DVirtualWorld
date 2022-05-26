@@ -91,16 +91,7 @@ namespace My2DWorldServer.Calls
                 using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
                 {
                     UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
-                    PacketPushChatMessage pushMessage = new PacketPushChatMessage
-                    {
-                        PlayerName = user?.Username,
-                        Message = packet.Message
-                    };
-
-                    var arraySegmentPushMessage = new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializer.Serialize(pushMessage)));
-
-                    await _users.Sessions.Where(x => x.ServerId == _session.ServerId && x.MapId == _session.MapId)
-                    .ForEachAsyncCustom(x => x.WebSocket.SendAsync(arraySegmentPushMessage, WebSocketMessageType.Binary, true, CancellationToken.None));
+                    await _gameInformer.SendPushUserMessageToRoom(user, packet.Message);
                 }
             }
         }
@@ -110,19 +101,36 @@ namespace My2DWorldServer.Calls
             throw new NotImplementedException();
         }
 
-        public Task OnGameLoad(PacketGameLoad packet)
+        public async Task OnGameLoad(PacketGameLoad packet)
         {
-            throw new NotImplementedException();
+            if (_session.Logged && _session.ServerId != null)
+            {
+                using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
+                {
+                    GameEntity? game = await dbContext.Games.FindAsync(packet.GameId);
+                    if (game != null)
+                    {
+                        UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
+                        await _gameInformer.SendExitedRoomToAll(user);
+                        _session.GameId = packet.GameId;
+                        await _gameInformer.SendPlayerGameLoad(game);
+                    }
+                }
+            }
         }
 
         public Task OnGameProgressUpdate(PacketGameProgressUpdate packet)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
 
-        public Task OnGameQuit(PacketGameQuit packet)
+        public async Task OnGameQuit(PacketGameQuit packet)
         {
-            throw new NotImplementedException();
+            if (_session.Logged && _session.ServerId != null && _session.GameId != null)
+            {
+                _session.GameId = null;
+                await _gameInformer.SendMapChange(_session.MapId ?? 1, -1);
+            }
         }
 
         public Task OnMapChange(PacketMapChange packet)
@@ -153,6 +161,15 @@ namespace My2DWorldServer.Calls
             throw new NotImplementedException();
         }
 
+        public async Task OnRequestChangeServer(PacketRequestChangeServer packet)
+        {
+            if(_session.Logged && _session.ServerId != null)
+            {
+                await OnQuitServer();
+                await _gameInformer.SendAuthenticateConnection();
+            }
+        }
+
         public async Task OnQuitServer()
         {
             if (_session.Logged && _session.MapId != null && _session.ServerId != null)
@@ -166,6 +183,9 @@ namespace My2DWorldServer.Calls
                         await dbContext.UpdateFieldsAsync(user, x => x.LastLocationId);
                     }
                     await _gameInformer.SendExitedRoomToAll(user);
+                    _session.ServerId = null;
+                    _session.MapId = null;
+                    _session.GameId = null;
                     Console.WriteLine($"{user?.Username} has left.");
                 }
             }

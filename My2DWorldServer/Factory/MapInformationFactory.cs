@@ -56,7 +56,8 @@ namespace My2DWorldServer.Factory
                                 Speeches = x.Npc?.Speeches?.Select(s => s.Speech).ToArray(),
                                 Games = x.Npc?.Games?.Select(g => new MiniGameInfo
                                 {
-                                    Name = g.Game?.Name,
+                                    GameId = g.GameId,
+                                    GameName = g.Game?.Name,
                                     FilePath = g.Game?.FilePath,
                                 }).ToArray()
                             },
@@ -65,7 +66,7 @@ namespace My2DWorldServer.Factory
                             ScaleX = x.ScaleX,
                             ScaleY = x.ScaleY,
                         }).ToArray(),
-                        Users = (await Task.WhenAll(dbContext.Users.FindMany(_users.Sessions.Where(x => x != _session && x.ServerId == _session.ServerId && x.MapId == mapId).Select(x => x.UserId))
+                        Users = (await Task.WhenAll(dbContext.Users.FindMany(_users.Sessions.Where(x => x != _session && x.ServerId == _session.ServerId && x.MapId == mapId && x.GameId == null).Select(x => x.UserId))
                             .Select(x => userFactory.Create(x)).ToArray()))
                     };
 

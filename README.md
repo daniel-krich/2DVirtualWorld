@@ -15,6 +15,8 @@
 - Minigames.
 - A Chat to interact with other players.
 ***
+> Repository includes a pre-compiled WebGL build with backend only for demo purposes.
+***
 
 ### Registration screen ###
 ![p8](https://user-images.githubusercontent.com/87533517/170724485-0961de5b-1645-4782-9575-0af258c55ef2.png)

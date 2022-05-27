@@ -134,7 +134,6 @@ namespace My2DWorldServer.Controllers
                 finally
                 {
                     _users.Sessions.Remove(_session);
-                    Console.WriteLine("Connection closed");
                 }
             }
         }

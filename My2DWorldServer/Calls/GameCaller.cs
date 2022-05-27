@@ -186,7 +186,6 @@ namespace My2DWorldServer.Calls
                     _session.ServerId = null;
                     _session.MapId = null;
                     _session.GameId = null;
-                    Console.WriteLine($"{user?.Username} has left.");
                 }
             }
         }

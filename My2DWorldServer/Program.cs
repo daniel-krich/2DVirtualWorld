@@ -58,9 +58,9 @@ try
         app.UseHsts();
     }
 
-    app.UseHttpsRedirection();
-
     app.UseResponseCompression();
+
+    app.UseHttpsRedirection();
 
     app.UseStaticFiles(new StaticFileOptions
     {

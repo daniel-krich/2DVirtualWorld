@@ -19,6 +19,7 @@ namespace My2DWorldShared.Enums
         MiniGameProgressUpdate,
         ShopLoad,
         ShopBuy,
-        RequestChangeServer
+        RequestChangeServer,
+        RequestInventoryBatch
     }
 }

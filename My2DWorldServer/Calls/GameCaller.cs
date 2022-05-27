@@ -189,5 +189,10 @@ namespace My2DWorldServer.Calls
                 }
             }
         }
+
+        public async Task OnRequestInventoryBatch(PacketRequestInventoryBatch packet)
+        {
+            await _gameInformer.SendInventoryBatch(packet.Offset, 20);
+        }
     }
 }

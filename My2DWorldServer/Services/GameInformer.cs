@@ -163,5 +163,16 @@ namespace My2DWorldServer.Services
             PacketPlayerGameLoad gameLoad = new PacketPlayerGameLoad(game?.Id, game?.Name, game?.FilePath);
             await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(gameLoad))), WebSocketMessageType.Binary, true, CancellationToken.None);
         }
+
+        public async Task SendInventoryBatch(int offset, int fetch)
+        {
+            InventoryBatchFactory inventoryFactory = new InventoryBatchFactory(_dbContextFactory, _session);
+            InventoryItemModel[] items = await inventoryFactory.Create(offset, fetch);
+            PacketSendInventoryBatch packetInventorySend = new PacketSendInventoryBatch
+            {
+                Batch = items
+            };
+            await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(packetInventorySend))), WebSocketMessageType.Binary, true, CancellationToken.None);
+        }
     }
 }

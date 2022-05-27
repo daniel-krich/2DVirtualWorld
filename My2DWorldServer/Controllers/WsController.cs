@@ -113,6 +113,11 @@ namespace My2DWorldServer.Controllers
                             if (requestChangeServer != null)
                                 await _gameCaller.OnRequestChangeServer(requestChangeServer);
                             break;
+                        case IncomingPacketId.RequestInventoryBatch:
+                            var requestInventoryBatch = await JsonSerializer.DeserializeAsync<PacketRequestInventoryBatch>(bufferStream);
+                            if (requestInventoryBatch != null)
+                                await _gameCaller.OnRequestInventoryBatch(requestInventoryBatch);
+                            break;
                         default:
                             throw new ApplicationException($"Invalid packet id sent ({packet?.Id})");
                     }

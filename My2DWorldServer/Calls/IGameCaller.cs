@@ -18,5 +18,6 @@ namespace My2DWorldServer.Calls
         public Task OnShopBuy(PacketShopBuy packet);
         public Task OnRequestChangeServer(PacketRequestChangeServer packet);
         public Task OnQuitServer();
+        public Task OnRequestInventoryBatch(PacketRequestInventoryBatch packet);
     }
 }

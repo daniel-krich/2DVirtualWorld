@@ -7,7 +7,7 @@ namespace My2DWorldServer.Calls
     {
         public Task OnAuthenticate(PacketAuthenticate packet);
         public Task OnChangeServer(PacketChangeServer packet);
-        public Task OnEquipItem(PacketEquipItem packet);
+        public Task OnTryEquipItem(PacketEquipItem packet);
         public Task OnPlayerMove(PacketPlayerMove packet);
         public Task OnChatMessage(PacketChatMessage packet);
         public Task OnMapChange(PacketMapChange packet);

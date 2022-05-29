@@ -1,4 +1,5 @@
 ﻿using My2DWorldShared.DataEntities;
+using My2DWorldShared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace My2DWorldShared.Models
     public class EquipedLoadoutModel
     {
         public int? Id { get; set; }
-        public int? Type { get; set; }
+        public ItemType? Type { get; set; }
         public string? FilePath { get; set; }
 
         public EquipedLoadoutModel()

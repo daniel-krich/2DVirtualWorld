@@ -3,10 +3,13 @@ using My2DWorldServer.Extensions;
 using My2DWorldServer.Services;
 using My2DWorldShared.Data;
 using My2DWorldShared.DataEntities;
+using My2DWorldShared.Enums;
 using My2DWorldShared.Extensions;
+using My2DWorldShared.Models;
 using My2DWorldShared.PacketsIn;
 using My2DWorldShared.PacketsOut;
 using System.Net.WebSockets;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
@@ -96,9 +99,56 @@ namespace My2DWorldServer.Calls
             }
         }
 
-        public Task OnEquipItem(PacketEquipItem packet)
+        public async Task OnTryEquipItem(PacketEquipItem packet)
         {
-            throw new NotImplementedException();
+            if (_session.Logged && _session.ServerId != null)
+            {
+                using (var dbContext = await _dbContextFactory.CreateDbContextAsync())
+                {
+                    UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
+                    if(user != null)
+                    {
+                        ItemEntity? item = user.Inventory?.FirstOrDefault(x => x.ItemId == packet.ItemId)?.Item;
+                        if(item != null)
+                        {
+                            PropertyInfo? itemFieldFromUser = user.GetType().GetProperty(Enum.GetName(typeof(ItemType), item.Type) ?? "");
+                            if(itemFieldFromUser != null)
+                            {
+                                if((itemFieldFromUser.GetValue(user) as int?) != item.Id)
+                                {
+                                    itemFieldFromUser.SetValue(user, item.Id);
+                                    await dbContext.UpdateFieldsAsync(user, itemFieldFromUser.Name);
+                                    PacketPlayerEquipItem playerEquip = new PacketPlayerEquipItem
+                                    {
+                                        PlayerName = user?.Username,
+                                        Item = new EquipedLoadoutModel
+                                        {
+                                            Id = item.Id,
+                                            Type = item.Type,
+                                            FilePath = item.FilePath
+                                        }
+                                    };
+                                    await _users.Sessions.Where(x => x.ServerId == _session.ServerId && x.MapId == _session.MapId && x.GameId == null)
+                                    .ForEachAsyncCustom(x => x.WebSocket.SendAsync(playerEquip, CancellationToken.None));
+                                }
+                                else
+                                {
+                                    itemFieldFromUser.SetValue(user, null);
+                                    await dbContext.UpdateFieldsAsync(user, itemFieldFromUser.Name);
+                                    PacketPlayerUnequipItem playerUnequip = new PacketPlayerUnequipItem
+                                    {
+                                        PlayerName = user?.Username,
+                                        ItemType = item.Type
+                                    };
+                                    await _users.Sessions.Where(x => x.ServerId == _session.ServerId && x.MapId == _session.MapId && x.GameId == null)
+                                    .ForEachAsyncCustom(x => x.WebSocket.SendAsync(playerUnequip, CancellationToken.None));
+                                }
+                            }                        
+                        }
+                        else throw new ApplicationException("Invalid equip item received.");
+                    }
+                }
+            }
         }
 
         public async Task OnGameLoad(PacketGameLoad packet)

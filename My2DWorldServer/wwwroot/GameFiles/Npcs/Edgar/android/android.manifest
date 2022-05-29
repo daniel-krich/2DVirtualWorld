@@ -1,7 +1,0 @@
-ManifestFileVersion: 0
-CRC: 975192449
-AssetBundleManifest:
-  AssetBundleInfos:
-    Info_0:
-      Name: object.npc
-      Dependencies: {}

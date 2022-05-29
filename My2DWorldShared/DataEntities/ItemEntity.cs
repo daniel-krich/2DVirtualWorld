@@ -11,11 +11,14 @@ namespace My2DWorldShared.DataEntities
 {
     public class ItemEntity : BaseEntity
     {
-        public int Type { get; set; }
+        public ItemType Type { get; set; }
         public PriceType PriceType { get; set; }
         public int Price { get; set; }
+        [MaxLength(256)]
         public string? FilePath { get; set; }
+        [MaxLength(64)]
         public string? Name { get; set; }
+        [MaxLength(64)]
         public string? ItemDesc { get; set; }
     }
 }

@@ -10,8 +10,11 @@ namespace My2DWorldShared.DataEntities
 {
     public class NpcEntity : BaseEntity
     {
+        [MaxLength(64)]
         public string? Name { get; set; }
+        [MaxLength(4096)]
         public string? About { get; set; }
+        [MaxLength(256)]
         public string? FilePath { get; set; }
 
         public virtual ICollection<MapNpcEntity>? Placements { get; set; }

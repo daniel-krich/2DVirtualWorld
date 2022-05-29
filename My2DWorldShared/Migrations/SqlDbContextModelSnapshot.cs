@@ -26,14 +26,24 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FilePath")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FilePath = "Games/BounceBall",
+                            Name = "הקפצת כדור"
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.ItemEntity", b =>
@@ -43,13 +53,16 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FilePath")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("ItemDesc")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -63,6 +76,148 @@ namespace My2DWorldShared.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Items");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FilePath = "Hairs/HRS_01",
+                            ItemDesc = "בלונד",
+                            Name = "שיער קוצים",
+                            Price = 600,
+                            PriceType = 0,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FilePath = "Hairs/HRS_02",
+                            ItemDesc = "שחורה",
+                            Name = "תספורת קוקו",
+                            Price = 500,
+                            PriceType = 0,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FilePath = "Pants/PNT_01",
+                            ItemDesc = "כחול",
+                            Name = "ג'ינס",
+                            Price = 1500,
+                            PriceType = 0,
+                            Type = 3
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FilePath = "Hairs/HRS_03",
+                            ItemDesc = "שחורה",
+                            Name = "תספורת מדרגה",
+                            Price = 600,
+                            PriceType = 0,
+                            Type = 1
+                        },
+                        new
+                        {
+                            Id = 5,
+                            FilePath = "Coats/CT_01",
+                            ItemDesc = "כחול",
+                            Name = "ג'אקט",
+                            Price = 3000,
+                            PriceType = 0,
+                            Type = 5
+                        },
+                        new
+                        {
+                            Id = 6,
+                            FilePath = "Hovers/HVR_01",
+                            ItemDesc = "כחול",
+                            Name = "סקייטבורד",
+                            Price = 2500,
+                            PriceType = 0,
+                            Type = 11
+                        },
+                        new
+                        {
+                            Id = 7,
+                            FilePath = "Facewear/FCW_01",
+                            ItemDesc = "רואים את העולם בכחול",
+                            Name = "משקפיים",
+                            Price = 900,
+                            PriceType = 0,
+                            Type = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            FilePath = "Hats/HT_01",
+                            ItemDesc = "לבן עם שחור",
+                            Name = "כובע מצחיה",
+                            Price = 1200,
+                            PriceType = 0,
+                            Type = 6
+                        },
+                        new
+                        {
+                            Id = 9,
+                            FilePath = "Shoes/SHS_01",
+                            ItemDesc = "שחור לבן",
+                            Name = "נעלי אופנה",
+                            Price = 1200,
+                            PriceType = 0,
+                            Type = 4
+                        },
+                        new
+                        {
+                            Id = 10,
+                            FilePath = "Tops/TPS_01",
+                            ItemDesc = "בצבעי הקשת",
+                            Name = "חולצת פרפרים",
+                            Price = 600,
+                            PriceType = 0,
+                            Type = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            FilePath = "Hovers/HVR_02",
+                            ItemDesc = "ירוק להסוואה מושלמת",
+                            Name = "טיל בליסטי",
+                            Price = 3000,
+                            PriceType = 0,
+                            Type = 11
+                        },
+                        new
+                        {
+                            Id = 12,
+                            FilePath = "Hovers/HVR_03",
+                            ItemDesc = "כחול ניאון",
+                            Name = "הוברבורד",
+                            Price = 3500,
+                            PriceType = 0,
+                            Type = 11
+                        },
+                        new
+                        {
+                            Id = 13,
+                            FilePath = "Neckwear/NCW_01",
+                            ItemDesc = "רק לכוכבים שבינינו",
+                            Name = "שרשרת השמש",
+                            Price = 2000,
+                            PriceType = 0,
+                            Type = 8
+                        },
+                        new
+                        {
+                            Id = 14,
+                            FilePath = "Hats/HT_02",
+                            ItemDesc = "אדום",
+                            Name = "כובע הפוך",
+                            Price = 1500,
+                            PriceType = 0,
+                            Type = 6
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.MapEntity", b =>
@@ -72,10 +227,12 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("FilePath")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<float>("SpawnX")
                         .HasColumnType("float");
@@ -86,6 +243,40 @@ namespace My2DWorldShared.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Maps");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            FilePath = "Maps/ForestRoom",
+                            Name = "חוות היער",
+                            SpawnX = 11f,
+                            SpawnY = -1.5f
+                        },
+                        new
+                        {
+                            Id = 2,
+                            FilePath = "Maps/ForestRoomHub",
+                            Name = "חנות חוות היער",
+                            SpawnX = 10f,
+                            SpawnY = 3f
+                        },
+                        new
+                        {
+                            Id = 3,
+                            FilePath = "Maps/ForestToCity",
+                            Name = "היער אל העיר",
+                            SpawnX = 0f,
+                            SpawnY = 0f
+                        },
+                        new
+                        {
+                            Id = 4,
+                            FilePath = "Maps/BridgeConnector",
+                            Name = "גשר החיבור",
+                            SpawnX = -7f,
+                            SpawnY = -0.5f
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.MapExitEntity", b =>
@@ -122,6 +313,74 @@ namespace My2DWorldShared.Migrations
                     b.HasIndex("MapId");
 
                     b.ToTable("MapExits");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ArrowAngle = 180f,
+                            EntranceX = -9f,
+                            EntranceY = 0f,
+                            ExitTeleportX = -0.15f,
+                            ExitTeleportY = 3f,
+                            MapExitId = 2,
+                            MapId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ArrowAngle = 90f,
+                            EntranceX = -13f,
+                            EntranceY = -4f,
+                            ExitTeleportX = 12f,
+                            ExitTeleportY = -2f,
+                            MapExitId = 3,
+                            MapId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ArrowAngle = 0f,
+                            EntranceX = -0.15f,
+                            EntranceY = 6f,
+                            ExitTeleportX = -9f,
+                            ExitTeleportY = -2f,
+                            MapExitId = 1,
+                            MapId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ArrowAngle = -80f,
+                            EntranceX = 13f,
+                            EntranceY = -2f,
+                            ExitTeleportX = -12f,
+                            ExitTeleportY = -4f,
+                            MapExitId = 1,
+                            MapId = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ArrowAngle = 80f,
+                            EntranceX = -13f,
+                            EntranceY = 2f,
+                            ExitTeleportX = 11f,
+                            ExitTeleportY = -1f,
+                            MapExitId = 4,
+                            MapId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ArrowAngle = -80f,
+                            EntranceX = 13f,
+                            EntranceY = 0f,
+                            ExitTeleportX = -10f,
+                            ExitTeleportY = 0.7f,
+                            MapExitId = 3,
+                            MapId = 4
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.MapNpcEntity", b =>
@@ -155,6 +414,18 @@ namespace My2DWorldShared.Migrations
                     b.HasIndex("NpcId");
 
                     b.ToTable("MapNpcs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            MapId = 2,
+                            NpcId = 1,
+                            PositionX = -12f,
+                            PositionY = 2f,
+                            ScaleX = -0.95f,
+                            ScaleY = 0.95f
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.NpcEntity", b =>
@@ -164,17 +435,29 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("About")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(4096)
+                        .HasColumnType("varchar(4096)");
 
                     b.Property<string>("FilePath")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Npcs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            About = "היי, אני אדגר,|מוכר הבגדים של הישוב.",
+                            FilePath = "Npcs/Edgar",
+                            Name = "אדגר ברי"
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.NpcGameEntity", b =>
@@ -196,6 +479,14 @@ namespace My2DWorldShared.Migrations
                     b.HasIndex("NpcId");
 
                     b.ToTable("NpcGames");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GameId = 1,
+                            NpcId = 1
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.NpcSpeechEntity", b =>
@@ -208,13 +499,34 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Speech")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(90)
+                        .HasColumnType("varchar(90)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NpcId");
 
                     b.ToTable("NpcSpeeches");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            NpcId = 1,
+                            Speech = "חברים, יש סחורה חדשה, אני מציע לכם לבדוק."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            NpcId = 1,
+                            Speech = "יש לי כאן במחסן הרבה ביגוד שבטוח יתאים לכם."
+                        },
+                        new
+                        {
+                            Id = 3,
+                            NpcId = 1,
+                            Speech = "המוטו שלי זה לשרת את הלקוח ברמה הכי טובה שיש."
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.ServerLocationEntity", b =>
@@ -227,11 +539,26 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ServerName")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Servers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ServerMaxPlayers = 200,
+                            ServerName = "ראשי"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ServerMaxPlayers = 20,
+                            ServerName = "בדיקות"
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.ShopEntity", b =>
@@ -241,7 +568,8 @@ namespace My2DWorldShared.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ShopName")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.HasKey("Id");
 
@@ -281,20 +609,21 @@ namespace My2DWorldShared.Migrations
                     b.Property<DateTime>("Birthday")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("BodySuit")
+                    b.Property<int?>("BodySuit")
                         .HasColumnType("int");
 
                     b.Property<int>("Cash")
                         .HasColumnType("int");
 
-                    b.Property<int>("Coat")
+                    b.Property<int?>("Coat")
                         .HasColumnType("int");
 
-                    b.Property<int>("Earings")
+                    b.Property<int?>("Earings")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(64)
+                        .HasColumnType("varchar(64)");
 
                     b.Property<int>("Exp")
                         .HasColumnType("int");
@@ -302,7 +631,7 @@ namespace My2DWorldShared.Migrations
                     b.Property<int>("EyeColor")
                         .HasColumnType("int");
 
-                    b.Property<int>("Facial")
+                    b.Property<int?>("FacialWear")
                         .HasColumnType("int");
 
                     b.Property<int>("Gender")
@@ -311,13 +640,13 @@ namespace My2DWorldShared.Migrations
                     b.Property<int>("GoldenCoins")
                         .HasColumnType("int");
 
-                    b.Property<int>("Hair")
+                    b.Property<int?>("Hair")
                         .HasColumnType("int");
 
-                    b.Property<int>("Hat")
+                    b.Property<int?>("Hat")
                         .HasColumnType("int");
 
-                    b.Property<int>("Hovers")
+                    b.Property<int?>("Hovers")
                         .HasColumnType("int");
 
                     b.Property<int?>("LastLocationId")
@@ -326,35 +655,79 @@ namespace My2DWorldShared.Migrations
                     b.Property<int>("Level")
                         .HasColumnType("int");
 
-                    b.Property<int>("Neckless")
+                    b.Property<int?>("Necklace")
                         .HasColumnType("int");
 
                     b.Property<int>("Officer")
                         .HasColumnType("int");
 
-                    b.Property<int>("Pants")
+                    b.Property<int?>("Pants")
                         .HasColumnType("int");
 
                     b.Property<string>("Password")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
 
-                    b.Property<int>("Shoes")
+                    b.Property<int?>("Shoes")
                         .HasColumnType("int");
 
                     b.Property<int>("SkinTone")
                         .HasColumnType("int");
 
-                    b.Property<int>("Top")
+                    b.Property<int?>("Top")
                         .HasColumnType("int");
 
                     b.Property<string>("Username")
-                        .HasColumnType("longtext");
+                        .HasMaxLength(32)
+                        .HasColumnType("varchar(32)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Email")
+                        .IsUnique();
+
                     b.HasIndex("LastLocationId");
 
+                    b.HasIndex("Username")
+                        .IsUnique();
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Admin = 1,
+                            Birthday = new DateTime(2002, 6, 2, 15, 35, 53, 280, DateTimeKind.Local).AddTicks(3712),
+                            Cash = 5000,
+                            Email = "test@test.com",
+                            Exp = 0,
+                            EyeColor = 2,
+                            Gender = 0,
+                            GoldenCoins = 200,
+                            Level = 20,
+                            Officer = 2,
+                            Password = "228228",
+                            SkinTone = 4,
+                            Username = "Danny"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Admin = 0,
+                            Birthday = new DateTime(2002, 6, 2, 15, 35, 53, 280, DateTimeKind.Local).AddTicks(3753),
+                            Cash = 2340,
+                            Email = "test@test123.com",
+                            Exp = 0,
+                            EyeColor = 4,
+                            Gender = 0,
+                            GoldenCoins = 264,
+                            Level = 10,
+                            Officer = 0,
+                            Password = "228228",
+                            SkinTone = 2,
+                            Username = "Daniel"
+                        });
                 });
 
             modelBuilder.Entity("My2DWorldShared.DataEntities.UserInventoryEntity", b =>

@@ -10,6 +10,7 @@ namespace My2DWorldShared.DataEntities
 {
     public class ShopEntity : BaseEntity
     {
+        [MaxLength(64)]
         public string? ShopName { get; set; }
         public virtual ICollection<ShopItemEntity>? ShopItems { get; set; }
     }

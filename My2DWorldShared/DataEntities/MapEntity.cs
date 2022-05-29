@@ -10,7 +10,9 @@ namespace My2DWorldShared.DataEntities
 {
     public class MapEntity : BaseEntity
     {
+        [MaxLength(64)]
         public string? Name { get; set; }
+        [MaxLength(256)]
         public string? FilePath { get; set; }
         public float SpawnX { get; set; }
         public float SpawnY { get; set; }

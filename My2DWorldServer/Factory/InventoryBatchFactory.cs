@@ -17,7 +17,7 @@ namespace My2DWorldServer.Factory
             _session = session;
         }
 
-        public async Task<InventoryItemModel[]> Create(int offset, int fetch = 50)
+        public async Task<(InventoryItemModel[], InventoryBatchInfoModel)> Create(int offset, int fetch = 50)
         {
             if (_session.Logged)
             {
@@ -26,7 +26,7 @@ namespace My2DWorldServer.Factory
                     UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
                     if(user != null)
                     {
-                        return user.Inventory?.Skip(offset).Take(fetch).Select(x => new InventoryItemModel
+                        var inventoryItems = user.Inventory?.Reverse().Skip(offset).Take(fetch).Select(x => new InventoryItemModel
                         {
                             ItemId = x.ItemId,
                             Name = x.Item?.Name,
@@ -37,10 +37,19 @@ namespace My2DWorldServer.Factory
                             ItemDesc = x.Item?.ItemDesc,
                             ItemQuantity = x.ItemQuantity
                         }).ToArray() ?? Array.Empty<InventoryItemModel>();
+
+                        var inventoryStats = new InventoryBatchInfoModel
+                        {
+                            ItemsCount = user.Inventory?.Count,
+                            MaxItemsPerBatch = fetch,
+                            ItemsBatchCount = inventoryItems.Length
+                        };
+
+                        return (inventoryItems, inventoryStats);
                     }
                 }
             }
-            return Array.Empty<InventoryItemModel>();
+            return (Array.Empty<InventoryItemModel>(), new InventoryBatchInfoModel());
         }
     }
 }

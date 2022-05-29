@@ -16,6 +16,8 @@ namespace My2DWorldShared.Enums
         PlayerExitRoom,
         PlayerSpeech,
         PlayerGameLoad,
-        SendInventoryBatch
+        SendInventoryBatch,
+        PlayerEquipItem,
+        PlayerUnequipItem
     }
 }

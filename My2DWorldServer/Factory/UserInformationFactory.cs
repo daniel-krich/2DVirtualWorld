@@ -45,7 +45,7 @@ namespace My2DWorldServer.Factory
                             Officer = user.Officer
                         },
                         Loadout = dbContext.Items.FindMany(user.Hair, user.Top, user.Pants, user.Shoes, user.BodySuit,
-                                                            user.Coat, user.Earings, user.Hat, user.Hovers, user.Neckless, user.Facial)
+                                                            user.Coat, user.Earings, user.Hat, user.Hovers, user.Necklace, user.FacialWear)
                                                                     .Select(x => new EquipedLoadoutModel(x)).ToArray()
                     };
                     return userInfo;

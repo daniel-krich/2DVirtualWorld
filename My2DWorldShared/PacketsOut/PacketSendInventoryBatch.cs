@@ -10,6 +10,7 @@ namespace My2DWorldShared.PacketsOut
 {
     public class PacketSendInventoryBatch : PacketOutBase
     {
+        public InventoryBatchInfoModel? Info { get; set; }
         public InventoryItemModel[]? Batch { get; set; }
         public PacketSendInventoryBatch()
         {

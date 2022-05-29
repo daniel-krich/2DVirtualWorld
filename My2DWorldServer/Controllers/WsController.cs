@@ -17,11 +17,13 @@ namespace My2DWorldServer.Controllers
         private IGameCaller _gameCaller;
         private UsersSessionCollection _users;
         private UserSession _session;
-        public WsController(IGameCaller gameCaller, UsersSessionCollection users, UserSession session)
+        private ILogger<WsController> _logger;
+        public WsController(IGameCaller gameCaller, UsersSessionCollection users, UserSession session, ILogger<WsController> logger)
         {
             _gameCaller = gameCaller;
             _users = users;
             _session = session;
+            _logger = logger;
         }
 
         [HttpGet("connect")]
@@ -71,7 +73,7 @@ namespace My2DWorldServer.Controllers
                         case IncomingPacketId.EquipItem:
                             var equipitem = await JsonSerializer.DeserializeAsync<PacketEquipItem>(bufferStream);
                             if (equipitem != null)
-                                await _gameCaller.OnEquipItem(equipitem);
+                                await _gameCaller.OnTryEquipItem(equipitem);
                             break;
                         case IncomingPacketId.MiniGameLoad:
                             var gameload = await JsonSerializer.DeserializeAsync<PacketGameLoad>(bufferStream);
@@ -124,10 +126,12 @@ namespace My2DWorldServer.Controllers
                     wsRes = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                 }
             }
-            catch
+            catch(Exception err)
             {
                 if (webSocket.State == WebSocketState.Connecting || webSocket.State == WebSocketState.Open)
                     await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, string.Empty, CancellationToken.None);
+
+                _logger.LogWarning(err, err.Message);
             }
             finally
             {

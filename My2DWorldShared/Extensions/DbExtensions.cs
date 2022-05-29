@@ -31,5 +31,15 @@ namespace My2DWorldShared.Extensions
             }
             return dbContext.SaveChangesAsync();
         }
+
+        public static Task<int> UpdateFieldsAsync<T>(this DbContext dbContext, T entity, params string[] fields) where T : BaseEntity
+        {
+            var attachedEntity = dbContext.Attach(entity);
+            foreach (var field in fields)
+            {
+                attachedEntity.Property(field).IsModified = true;
+            }
+            return dbContext.SaveChangesAsync();
+        }
     }
 }

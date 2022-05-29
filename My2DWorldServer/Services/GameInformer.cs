@@ -167,10 +167,11 @@ namespace My2DWorldServer.Services
         public async Task SendInventoryBatch(int offset, int fetch)
         {
             InventoryBatchFactory inventoryFactory = new InventoryBatchFactory(_dbContextFactory, _session);
-            InventoryItemModel[] items = await inventoryFactory.Create(offset, fetch);
+            (InventoryItemModel[], InventoryBatchInfoModel) items = await inventoryFactory.Create(offset, fetch);
             PacketSendInventoryBatch packetInventorySend = new PacketSendInventoryBatch
             {
-                Batch = items
+                Batch = items.Item1,
+                Info = items.Item2
             };
             await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(packetInventorySend))), WebSocketMessageType.Binary, true, CancellationToken.None);
         }

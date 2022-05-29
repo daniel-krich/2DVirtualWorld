@@ -10,6 +10,7 @@ namespace My2DWorldShared.DataEntities
 {
     public class ServerLocationEntity : BaseEntity
     {
+        [MaxLength(32)]
         public string? ServerName { get; set; }
         public int ServerMaxPlayers { get; set; }
     }

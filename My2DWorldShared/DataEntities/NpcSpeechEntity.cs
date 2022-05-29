@@ -12,7 +12,7 @@ namespace My2DWorldShared.DataEntities
     {
         public int NpcId { get; set; }
         public virtual NpcEntity? Npc { get; set; }
-
+        [MaxLength(90)]
         public string? Speech { get; set; }
     }
 }

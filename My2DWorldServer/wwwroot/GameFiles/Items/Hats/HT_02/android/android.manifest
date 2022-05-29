@@ -1,7 +1,0 @@
-ManifestFileVersion: 0
-CRC: 24939175
-AssetBundleManifest:
-  AssetBundleInfos:
-    Info_0:
-      Name: object.item
-      Dependencies: {}

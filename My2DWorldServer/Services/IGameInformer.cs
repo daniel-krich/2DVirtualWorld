@@ -9,10 +9,11 @@ namespace My2DWorldServer.Services
         public Task SendMapChange(int mapId, int exitId);
         public Task SendPlayerUpdatePosition(float x, float y);
         public Task SendPushUserInformation();
-        public Task SendInventoryBatch(int offset, int fetch);
+        public Task SendInventoryBatch(int offset, int fetchCount);
         public Task SendPushUserMessageToRoom(UserEntity? user, string? message);
         public Task SendJoinedRoomToAll(UserEntity? user);
         public Task SendExitedRoomToAll(UserEntity? user);
         public Task SendPlayerGameLoad(GameEntity? game);
+        public Task SendPlayerShopBatch(int shopId, int shopPage, int fetchCount);
     }
 }

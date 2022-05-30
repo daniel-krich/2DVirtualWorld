@@ -183,22 +183,20 @@ namespace My2DWorldServer.Calls
             }
         }
 
-        public Task OnMapChange(PacketMapChange packet)
+        public async Task OnMapChange(PacketMapChange packet)
         {
             if (_session.Logged && _session.ServerId != null)
             {
-                _gameInformer.SendMapChange(packet.MapId, packet.ExitId);
+                await _gameInformer.SendMapChange(packet.MapId, packet.ExitId);
             }
-            return Task.CompletedTask;
         }
 
-        public Task OnPlayerMove(PacketPlayerMove packet)
+        public async Task OnPlayerMove(PacketPlayerMove packet)
         {
             if (_session.Logged && _session.ServerId != null)
             {
-                _gameInformer.SendPlayerUpdatePosition(packet.X, packet.Y);
+                await _gameInformer.SendPlayerUpdatePosition(packet.X, packet.Y);
             }
-            return Task.CompletedTask;
         }
 
         public Task OnShopBuy(PacketShopBuy packet)
@@ -206,9 +204,12 @@ namespace My2DWorldServer.Calls
             throw new NotImplementedException();
         }
 
-        public Task OnShopLoad(PacketShopLoad packet)
+        public async Task OnShopLoad(PacketShopLoad packet)
         {
-            throw new NotImplementedException();
+            if (_session.Logged && _session.ServerId != null)
+            {
+                await _gameInformer.SendPlayerShopBatch(packet.ShopId, packet.ShopPage, 15);
+            }
         }
 
         public async Task OnRequestChangeServer(PacketRequestChangeServer packet)

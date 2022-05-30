@@ -161,19 +161,28 @@ namespace My2DWorldServer.Services
         public async Task SendPlayerGameLoad(GameEntity? game)
         {
             PacketPlayerGameLoad gameLoad = new PacketPlayerGameLoad(game?.Id, game?.Name, game?.FilePath);
-            await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(gameLoad))), WebSocketMessageType.Binary, true, CancellationToken.None);
+            await _session.WebSocket.SendAsync(gameLoad, CancellationToken.None);
         }
 
-        public async Task SendInventoryBatch(int offset, int fetch)
+        public async Task SendInventoryBatch(int offset, int fetchCount)
         {
-            InventoryBatchFactory inventoryFactory = new InventoryBatchFactory(_dbContextFactory, _session);
-            (InventoryItemModel[], InventoryBatchInfoModel) items = await inventoryFactory.Create(offset, fetch);
+            InventoryModelFactory inventoryFactory = new InventoryModelFactory(_dbContextFactory, _session);
+            InventoryModel items = await inventoryFactory.Create(offset, fetchCount);
             PacketSendInventoryBatch packetInventorySend = new PacketSendInventoryBatch
             {
-                Batch = items.Item1,
-                Info = items.Item2
+                Inventory = items
             };
-            await _session.WebSocket.SendAsync(new ArraySegment<byte>(Encoding.UTF8.GetBytes(JsonSerializerExtensions.SerializeUnicode(packetInventorySend))), WebSocketMessageType.Binary, true, CancellationToken.None);
+            await _session.WebSocket.SendAsync(packetInventorySend, CancellationToken.None);
+        }
+
+        public async Task SendPlayerShopBatch(int shopId, int shopPage, int fetchCount)
+        {
+            ShopModelFactory shopFactory = new ShopModelFactory(_dbContextFactory);
+            PacketSendShopLoadBatch shopPacket = new PacketSendShopLoadBatch
+            {
+                Shop = await shopFactory.Create(shopId, shopPage, fetchCount)
+            };
+            await _session.WebSocket.SendAsync(shopPacket, CancellationToken.None);
         }
     }
 }

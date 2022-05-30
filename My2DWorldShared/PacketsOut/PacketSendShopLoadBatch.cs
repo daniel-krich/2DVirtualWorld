@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace My2DWorldShared.PacketsOut
 {
-    public class PacketSendInventoryBatch : PacketOutBase
+    public class PacketSendShopLoadBatch : PacketOutBase
     {
-        public InventoryModel? Inventory { get; set; }
-        public PacketSendInventoryBatch()
+        public ShopModel? Shop { get; set; }
+        public PacketSendShopLoadBatch()
         {
-            Id = OutComingPacketId.SendInventoryBatch;
+            Id = OutComingPacketId.SendShopLoadBatch;
         }
     }
 }

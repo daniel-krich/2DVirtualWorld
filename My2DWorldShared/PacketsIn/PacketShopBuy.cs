@@ -8,7 +8,7 @@ namespace My2DWorldShared.PacketsIn
 {
     public class PacketShopBuy : PacketInBase
     {
-        public int ShopID { get; set; }
-        public int ItemID { get; set; }
+        public int ShopId { get; set; }
+        public int ItemId { get; set; }
     }
 }

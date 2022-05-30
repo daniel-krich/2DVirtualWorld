@@ -18,6 +18,7 @@ namespace My2DWorldShared.Enums
         PlayerGameLoad,
         SendInventoryBatch,
         PlayerEquipItem,
-        PlayerUnequipItem
+        PlayerUnequipItem,
+        SendShopLoadBatch
     }
 }

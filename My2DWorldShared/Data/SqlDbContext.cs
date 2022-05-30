@@ -66,6 +66,8 @@ namespace My2DWorldShared.Data
             SeedMapExits(modelBuilder);
             SeedMapNpcs(modelBuilder);
             SeedItems(modelBuilder);
+            SeedShops(modelBuilder);
+            SeedShopItems(modelBuilder);
         }
 
         private void SeedUsers(ModelBuilder modelBuilder)
@@ -83,7 +85,7 @@ namespace My2DWorldShared.Data
                     Gender = GenderType.Male,
                     EyeColor = 2,
                     SkinTone = 4,
-                    Birthday = DateTime.Now.Subtract(TimeSpan.FromDays(365*20)),
+                    Birthday = DateTime.Now.Subtract(TimeSpan.FromDays(365 * 20)),
                     Admin = 1,
                     Officer = 2
                 },
@@ -451,6 +453,107 @@ namespace My2DWorldShared.Data
                     FilePath = "Hats/HT_02",
                     Name = "כובע הפוך",
                     ItemDesc = "אדום"
+                }
+            );
+        }
+
+        private void SeedShops(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ShopEntity>().HasData(
+                new ShopEntity
+                {
+                    Id = 1,
+                    ShopName = "בגדי סטייל"
+                }
+            );
+        }
+
+        private void SeedShopItems(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ShopItemEntity>().HasData(
+                new ShopItemEntity
+                {
+                    Id = 1,            
+                    ShopId = 1,
+                    ItemId = 1
+                },
+                new ShopItemEntity
+                {
+                    Id = 2,
+                    ShopId = 1,
+                    ItemId = 2
+                },
+                new ShopItemEntity
+                {
+                    Id = 3,
+                    ShopId = 1,
+                    ItemId = 3
+                },
+                new ShopItemEntity
+                {
+                    Id = 4,
+                    ShopId = 1,
+                    ItemId = 4
+                },
+                new ShopItemEntity
+                {
+                    Id = 5,
+                    ShopId = 1,
+                    ItemId = 5
+                },
+                new ShopItemEntity
+                {
+                    Id = 6,
+                    ShopId = 1,
+                    ItemId = 6
+                },
+                new ShopItemEntity
+                {
+                    Id = 7,
+                    ShopId = 1,
+                    ItemId = 7
+                },
+                new ShopItemEntity
+                {
+                    Id = 8,
+                    ShopId = 1,
+                    ItemId = 8
+                },
+                new ShopItemEntity
+                {
+                    Id = 9,
+                    ShopId = 1,
+                    ItemId = 9
+                },
+                new ShopItemEntity
+                {
+                    Id = 10,
+                    ShopId = 1,
+                    ItemId = 10
+                },
+                new ShopItemEntity
+                {
+                    Id = 11,
+                    ShopId = 1,
+                    ItemId = 11
+                },
+                new ShopItemEntity
+                {
+                    Id = 12,
+                    ShopId = 1,
+                    ItemId = 12
+                },
+                new ShopItemEntity
+                {
+                    Id = 13,
+                    ShopId = 1,
+                    ItemId = 13
+                },
+                new ShopItemEntity
+                {
+                    Id = 14,
+                    ShopId = 1,
+                    ItemId = 14
                 }
             );
         }

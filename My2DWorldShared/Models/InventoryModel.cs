@@ -7,7 +7,13 @@ using System.Threading.Tasks;
 
 namespace My2DWorldShared.Models
 {
-    public class InventoryItemModel
+    public class InventoryModel
+    {
+        public ItemInfoModel[]? Batch { get; set; }
+        public InventoryBatchInfoModel? Info { get; set; }
+    }
+
+    public class ItemInfoModel
     {
         public int? ItemId { get; set; }
         public ItemType? Type { get; set; }
@@ -18,6 +24,7 @@ namespace My2DWorldShared.Models
         public string? Name { get; set; }
         public string? ItemDesc { get; set; }
     }
+
     public class InventoryBatchInfoModel
     {
         public int? ItemsCount { get; set; }

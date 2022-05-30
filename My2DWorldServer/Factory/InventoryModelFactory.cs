@@ -7,17 +7,17 @@ using My2DWorldShared.Models;
 
 namespace My2DWorldServer.Factory
 {
-    public class InventoryBatchFactory
+    public class InventoryModelFactory
     {
         private IDbContextFactory<SqlDbContext> _dbContextFactory;
         private UserSession _session;
-        public InventoryBatchFactory(IDbContextFactory<SqlDbContext> dbContextFactory, UserSession session)
+        public InventoryModelFactory(IDbContextFactory<SqlDbContext> dbContextFactory, UserSession session)
         {
             _dbContextFactory = dbContextFactory;
             _session = session;
         }
 
-        public async Task<(InventoryItemModel[], InventoryBatchInfoModel)> Create(int offset, int fetch = 50)
+        public async Task<InventoryModel> Create(int offset, int fetchCount = 50)
         {
             if (_session.Logged)
             {
@@ -26,7 +26,7 @@ namespace My2DWorldServer.Factory
                     UserEntity? user = await dbContext.Users.FindAsync(_session.UserId);
                     if(user != null)
                     {
-                        var inventoryItems = user.Inventory?.Reverse().Skip(offset).Take(fetch).Select(x => new InventoryItemModel
+                        var inventoryItems = user.Inventory?.Reverse().Skip(offset).Take(fetchCount).Select(x => new ItemInfoModel
                         {
                             ItemId = x.ItemId,
                             Name = x.Item?.Name,
@@ -36,20 +36,24 @@ namespace My2DWorldServer.Factory
                             FilePath = x.Item?.FilePath,
                             ItemDesc = x.Item?.ItemDesc,
                             ItemQuantity = x.ItemQuantity
-                        }).ToArray() ?? Array.Empty<InventoryItemModel>();
+                        }).ToArray() ?? Array.Empty<ItemInfoModel>();
 
                         var inventoryStats = new InventoryBatchInfoModel
                         {
                             ItemsCount = user.Inventory?.Count,
-                            MaxItemsPerBatch = fetch,
+                            MaxItemsPerBatch = fetchCount,
                             ItemsBatchCount = inventoryItems.Length
                         };
 
-                        return (inventoryItems, inventoryStats);
+                        return new InventoryModel
+                        {
+                            Batch = inventoryItems,
+                            Info = inventoryStats
+                        };
                     }
                 }
             }
-            return (Array.Empty<InventoryItemModel>(), new InventoryBatchInfoModel());
+            return new InventoryModel();
         }
     }
 }

@@ -208,7 +208,7 @@ namespace My2DWorldServer.Calls
         {
             if (_session.Logged && _session.ServerId != null)
             {
-                await _gameInformer.SendPlayerShopBatch(packet.ShopId, packet.ShopPage, 15);
+                await _gameInformer.SendPlayerShopBatch(packet.ShopId, packet.ShopPage, 5);
             }
         }
 

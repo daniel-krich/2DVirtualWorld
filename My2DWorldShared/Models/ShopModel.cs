@@ -19,5 +19,6 @@ namespace My2DWorldShared.Models
         public int? ItemsCount { get; set; }
         public int? MaxItemsPerBatch { get; set; }
         public int? ItemsBatchCount { get; set; }
+        public int? CurrentPage { get; set; }
     }
 }

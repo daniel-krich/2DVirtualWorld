@@ -39,7 +39,8 @@ namespace My2DWorldServer.Factory
                     {
                         ItemsCount = shop?.ShopItems?.Count,
                         MaxItemsPerBatch = fetchCount,
-                        ItemsBatchCount = shopItems?.Length
+                        ItemsBatchCount = shopItems?.Length,
+                        CurrentPage = shopPage
                     }
                 };
                 return shopModel;

@@ -34,6 +34,7 @@
 ### In-game screens ###
 ![p3](https://user-images.githubusercontent.com/87533517/170724663-70f1a6e5-4640-4633-bcac-0bb7d7e47684.png)
 ![p4](https://user-images.githubusercontent.com/87533517/170724705-73af8ccd-8b15-472c-9eb4-cc8479929bb8.png)
+![p1](https://user-images.githubusercontent.com/87533517/171268375-ad2a364a-138c-4b5f-a2b5-cebce9675175.png)
 ![p1](https://user-images.githubusercontent.com/87533517/170892633-83167665-b600-4fbe-bc69-a36ec575cd77.png)
 ![p5](https://user-images.githubusercontent.com/87533517/170724727-db35c7da-90f2-484e-9ad1-bcc37824460c.png)
 ![p6](https://user-images.githubusercontent.com/87533517/170724762-921de2fd-97ad-4b48-ba7d-04ea499bd460.png)

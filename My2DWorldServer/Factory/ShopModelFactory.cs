@@ -32,6 +32,7 @@ namespace My2DWorldServer.Factory
                 }).ToArray();
                 ShopModel shopModel = new ShopModel
                 {
+                    ShopId = shop?.Id,
                     ShopName = shop?.ShopName,
                     Batch = shopItems,
                     Info = new ShopBatchInfoModel

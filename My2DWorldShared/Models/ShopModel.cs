@@ -8,6 +8,7 @@ namespace My2DWorldShared.Models
 {
     public class ShopModel
     {
+        public int? ShopId { get; set; }
         public string? ShopName { get; set; }
         public ItemInfoModel[]? Batch { get; set; }
         public ShopBatchInfoModel? Info { get; set; }

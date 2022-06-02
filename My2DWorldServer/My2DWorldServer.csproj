@@ -23,6 +23,14 @@
     <None Include="wwwroot\Build\mygame.wasm.code.unityweb" />
     <None Include="wwwroot\Build\mygame.wasm.framework.unityweb" />
     <None Include="wwwroot\Build\UnityLoader.js" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\android\object.game" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\android\object.game.meta" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\ios\object.game" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\ios\object.game.meta" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\webgl\object.game" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\webgl\object.game.meta" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\win\object.game" />
+    <None Include="wwwroot\GameFiles\Games\BounceBall\win\object.game.meta" />
   </ItemGroup>
 
   <ItemGroup>

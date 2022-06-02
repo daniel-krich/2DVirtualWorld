@@ -3,6 +3,10 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Unity build ignore
+My2DWorld/
+My2DWorld/*
+
 # User-specific files
 *.rsuser
 *.suo

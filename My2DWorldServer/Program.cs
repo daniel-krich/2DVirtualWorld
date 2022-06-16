@@ -12,6 +12,7 @@ using NLog.Web;
 using Microsoft.AspNetCore.ResponseCompression;
 using System.IO.Compression;
 
+// Init logger
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 logger.Info("Application init.");
 

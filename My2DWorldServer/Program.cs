@@ -60,7 +60,7 @@ try
 
     app.UseResponseCompression();
 
-    app.UseHttpsRedirection();
+    //app.UseHttpsRedirection();
 
     app.UseStaticFiles(new StaticFileOptions
     {

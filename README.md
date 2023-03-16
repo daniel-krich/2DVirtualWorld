@@ -23,7 +23,8 @@
 ![p9](https://user-images.githubusercontent.com/87533517/170724532-ec8bb9ab-cd98-4c7f-80ff-bf27d9a0a44e.png)
 ![p10](https://user-images.githubusercontent.com/87533517/170724569-b957883c-8f92-4c2f-9e1d-d759dab619fe.png)
 ![p11](https://user-images.githubusercontent.com/87533517/170724599-2c569eff-f6eb-4c7b-9762-c56ad2153b81.png)
-![p2](https://user-images.githubusercontent.com/87533517/170892798-805c9f2f-0b28-43b1-9357-1f6b53f46431.png)
+![p12](https://user-images.githubusercontent.com/87533517/225582383-fd0cc262-20c2-4202-82b2-5462c339e6f4.png)
+
 ***
 ### Login screen ###
 ![p1](https://user-images.githubusercontent.com/87533517/170724631-947135ea-0d47-4a3a-bbd6-7b3d4a91d159.png)
